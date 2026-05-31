@@ -25,7 +25,16 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                bat 'echo SonarQube Analysis Stage'
+                withSonarQubeEnv('SonarQube') {
+
+                    bat """
+                    C:\\Users\\HP\\Downloads\\sonarqube-26.5.0.122743\\sonar-scanner-cli-8.0.1.6346-windows-x64\\sonar-scanner-8.0.1.6346-windows-x64\\bin\\sonar-scanner.bat ^
+                    -Dsonar.projectKey=UIDAI-Biometric-Analytics ^
+                    -Dsonar.projectName=UIDAI-Biometric-Analytics ^
+                    -Dsonar.sources=. ^
+                    -Dsonar.host.url=http://localhost:9000
+                    """
+                }
             }
         }
     }
